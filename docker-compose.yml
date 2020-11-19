@@ -1,0 +1,70 @@
+version: '3.7'
+
+#The docker compose resume the two following command : 
+# episen-sca-jag-backend : docker run --name episen-sca-jag-back_docker -p 8080:8080 -v C:\Users\Utilisateur\OneDrive\Documents\fileShared:/usr/local jaguesse/episen-sca-jag-back
+# episen-sca-jag-front : docker run --name episen-sca-jag-front_docker -d -p 80:80 jaguesse/episen-sca-jag-front
+
+# Define services
+services:
+    # App backend service
+  episen-sca-jag-backend:
+   # Configuration for building the docker image for the backend service
+    image: jaguesse/episen-sca-jag-back #image back
+    container_name: episen-sca-jag-back_docker
+    ports:
+      - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    restart: always
+    # Volumes
+    volumes:
+      - ./backend:/usr/local
+    healthcheck:
+      test: curl -f http://localhost:8080/
+      interval: 1m30s
+      timeout: 10s
+      retries: 2
+      start_period: 10s
+    deploy:
+      mode: replicated
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+      update_config:
+        parallelism: 0
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    
+
+  # Frontend Service 
+  episen-sca-jag-front:
+    image: jaguesse/episen-sca-jag-front # image front
+    container_name: episen-sca-jag-front_docker #container' name
+    ports:
+      - "8081:8081" # Map the exposed port 80 on the container to port 8081 on the host machine
+    restart: always
+    healthcheck:
+      test: curl -f http://localhost:8081/
+      interval: 1m30s
+      timeout: 10s
+      retries: 2
+      start_period: 10s
+    deploy:
+      mode: replicated
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+      update_config:
+        parallelism: 0
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+    volumes:
+      - ./frontend:/var/log/nginx

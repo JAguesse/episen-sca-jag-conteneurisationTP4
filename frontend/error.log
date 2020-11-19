@@ -1,0 +1,7 @@
+2020/11/19 11:53:05 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
+2020/11/19 11:56:43 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
+2020/11/19 11:57:26 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
+2020/11/19 13:04:28 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
+2020/11/19 13:06:50 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
+2020/11/19 13:23:50 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
+2020/11/19 13:32:13 [alert] 1#1: unlink() "/var/run/nginx.pid" failed (13: Permission denied)
